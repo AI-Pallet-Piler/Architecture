@@ -2,6 +2,8 @@
 
 This guide will help you set up and run the AI-Pallet-Piler project using Docker Compose. It covers prerequisites, environment setup, running all services, and starting specific services.
 
+In this repo is a script to pull all repos needed for the project and a docker compose to run the services needen for the project
+
 ## Prerequisites
 
 - [Docker](https://docs.docker.com/get-docker/) installed on your system
