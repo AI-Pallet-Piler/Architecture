@@ -25,5 +25,4 @@ def Setup():
             print(f"Cloning {repo_name} from {repo_url} into {repo_path}")
             subprocess.run(["git", "clone", repo_url, repo_path])
 
-
 Setup()
