@@ -1,21 +1,37 @@
 name: ai-pallet-piler
 services:
-  frontend:
-    container_name: frontend
-    build: ./frontend
+  front-end-web:
+    container_name: front-end-web
+    build: ../front-end-web
+
+    ports:
+      - "5173:5173"
+    
+    volumes:
+      - ./../front-end-web:/app
+      - /app/node_modules
+    
+
+  front-end-App:
+    container_name: front-end-App
+    build: ../front-end-App
     depends_on:
       - backend
 
   backend:
     container_name: backend
-    build: ./backend
+    build: ../backend
     depends_on:
       - database
       - api-gateway
 
   api-gateway:
     container_name: api-gateway
-    build: ./api-gateway
+    build: ../api-gateway
+
+  security-api:
+    container_name: security-api
+    build: ../security-api
     
   database:
     container_name: postgres-database
