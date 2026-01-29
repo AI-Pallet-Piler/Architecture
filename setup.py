@@ -2,11 +2,11 @@ import os
 import subprocess
 
 REPOS = {
-    "Front-end-Web":"https://github.com/AI-Pallet-Piler/Front-end-Web.git",
-    "Front-end-App":"https://github.com/AI-Pallet-Piler/Front-end-App.git",
-    "Backend":"https://github.com/AI-Pallet-Piler/Backend.git",
-    "API-gateway":"https://github.com/AI-Pallet-Piler/API-gateway.git",
-    "Security-API":"https://github.com/AI-Pallet-Piler/Security-API.git",
+    "front-end-Web":"https://github.com/AI-Pallet-Piler/Front-end-Web.git",
+    "front-end-App":"https://github.com/AI-Pallet-Piler/Front-end-App.git",
+    "backend":"https://github.com/AI-Pallet-Piler/Backend.git",
+    "api-gateway":"https://github.com/AI-Pallet-Piler/API-gateway.git",
+    "security-api":"https://github.com/AI-Pallet-Piler/Security-API.git",
 }
 
 # function to copy the repos in the parent directory
