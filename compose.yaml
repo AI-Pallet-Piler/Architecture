@@ -21,6 +21,15 @@ services:
   backend:
     container_name: backend
     build: ../backend
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ./../backend:/app
+
     depends_on:
       - database
       - api-gateway
