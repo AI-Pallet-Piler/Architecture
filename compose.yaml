@@ -32,11 +32,13 @@ services:
 
     depends_on:
       - database
-      - api-gateway
 
   api-gateway:
     container_name: api-gateway
     build: ../api-gateway
+
+    ports:
+      - "8080:8080"
 
   security-api:
     container_name: security-api
