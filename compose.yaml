@@ -33,10 +33,12 @@ services:
     depends_on:
       - database
 
+
   api-gateway:
     container_name: api-gateway
     build: ../api-gateway
-
+    env_file:
+      - ../api-gateway/.env
     ports:
       - "8080:8080"
 
