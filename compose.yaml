@@ -45,6 +45,10 @@ services:
   security-api:
     container_name: security-api
     build: ../security-api
+    env_file:
+      - ../security-api/.env
+    ports:
+      - "8090:8090"
     
   database:
     container_name: postgres-database
@@ -55,4 +59,11 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
+    restart: always
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
     restart: always
