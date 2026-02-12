@@ -2,11 +2,11 @@ name: ai-pallet-piler
 services:
   front-end-web:
     container_name: front-end-web
-    build: ../front-end-web
+    build: ../front-end-Web
     ports:
       - "${FRONTEND_WEB_PORT:-5173}:5173"
     volumes:
-      - ./../front-end-web:/app
+      - ./../front-end-Web:/app
       - /app/node_modules
     environment:
       - VITE_API_BASE_URL=${VITE_API_BASE_URL}
