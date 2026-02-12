@@ -3,53 +3,66 @@ services:
   front-end-web:
     container_name: front-end-web
     build: ../front-end-web
-
     ports:
-      - "5173:5173"
-    
+      - "${FRONTEND_WEB_PORT:-5173}:5173"
     volumes:
       - ./../front-end-web:/app
       - /app/node_modules
-    
-
-  front-end-App:
-    container_name: front-end-App
-    build: ../front-end-App
-    depends_on:
-      - backend
+    environment:
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL}
 
   backend:
     container_name: backend
     build: ../backend
     environment:
       - DATABASE_URL=${DATABASE_URL}
-
+      - SECRET_KEY=${SECRET_KEY}
+      - JWT_ALGORITHM=${JWT_ALGORITHM}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES}
     ports:
-      - "8000:8000"
-
+      - "${BACKEND_PORT:-8000}:8000"
     volumes:
       - ./../backend:/app
-
     depends_on:
       - database
-
 
   api-gateway:
     container_name: api-gateway
     build: ../api-gateway
-    env_file:
-      - ../api-gateway/.env
+    environment:
+      - url_backend=${url_backend}
+      - check_upstream_services=${check_upstream_services}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - LOG_FILE_PATH=${LOG_FILE_PATH}
+      - LOG_MAX_BYTES=${LOG_MAX_BYTES}
+      - LOG_BACKUP_COUNT=${LOG_BACKUP_COUNT}
     ports:
-      - "8080:8080"
+      - "${API_GATEWAY_PORT:-8080}:8080"
 
   security-api:
     container_name: security-api
     build: ../security-api
-    env_file:
-      - ../security-api/.env
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - ALGORITHM=${ALGORITHM}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES}
+      - REFRESH_TOKEN_EXPIRE_DAYS=${REFRESH_TOKEN_EXPIRE_DAYS}
+      - USER_SERVICE_URL=${USER_SERVICE_URL}
+      - USER_SERVICE_API_KEY=${USER_SERVICE_API_KEY}
+      - USER_SERVICE_TIMEOUT=${USER_SERVICE_TIMEOUT}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_DB=${REDIS_DB}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_PREFIX=${REDIS_PREFIX}
+      - ROTATE_REFRESH_TOKEN=${ROTATE_REFRESH_TOKEN}
+      - MAX_ACTIVE_REFRESH_PER_USER=${MAX_ACTIVE_REFRESH_PER_USER}
+      - LOG_LEVEL=${LOG_LEVEL}
     ports:
-      - "8090:8090"
-    
+      - "${SECURITY_API_PORT:-8090}:8090"
+    depends_on:
+      - redis
+
   database:
     container_name: postgres-database
     image: postgres:latest
@@ -58,12 +71,12 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     restart: always
 
   redis:
     container_name: redis
     image: redis:latest
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT:-6379}:6379"
     restart: always
