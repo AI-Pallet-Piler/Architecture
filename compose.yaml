@@ -60,7 +60,7 @@ services:
       - MAX_ACTIVE_REFRESH_PER_USER=${MAX_ACTIVE_REFRESH_PER_USER}
       - LOG_LEVEL=${LOG_LEVEL}
     ports:
-      - "${SECURITY_API_PORT:-8090}:8090"
+      - "${SECURITY_API_PORT:-8090}:8000"
     depends_on:
       - redis
 
