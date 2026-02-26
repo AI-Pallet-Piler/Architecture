@@ -40,6 +40,7 @@ services:
     container_name: api-gateway
     build: ../api-gateway
     environment:
+- SECURITY_API_URL=${SECURITY_API_URL}
       - url_backend=${url_backend}
       - check_upstream_services=${check_upstream_services}
       - LOG_LEVEL=${LOG_LEVEL}
